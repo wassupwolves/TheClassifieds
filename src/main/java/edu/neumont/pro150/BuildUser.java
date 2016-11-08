@@ -15,9 +15,17 @@ public class BuildUser{
 							@RequestParam("password") String password,
 							@RequestParam("confirmpassword") String confirmPassword,
 							@RequestParam("email") String email) {
-			User user = new User(username, password, email);
+//		User user;
+		if(password.equals(confirmPassword)){
+//			user = new User(username, password, email);
+//			Message message;
+		}
+		else{
 			
-	        return "note";
-	    }
+		}
+		
+			
+		return "thankyou";
+	}
 	
 }
