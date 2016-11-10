@@ -12,6 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import edu.neumont.pro150.hibernate5.QueryUtilConnectionException;
+import edu.neumont.pro150.hibernate5.emqueryutil.EMQueryUtil;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "edu.neumont.pro150")
@@ -27,6 +30,14 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		return viewResolver;
 	}
 
+	
+	@Bean
+	public EMQueryUtil getQueryUtil() throws QueryUtilConnectionException
+	{
+		EMQueryUtil.RegisterEMF("fahim_list", "edu.neumont.pro150.datamodels");
+		return new EMQueryUtil("fahim_list");
+	}
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
