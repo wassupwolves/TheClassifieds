@@ -1,6 +1,5 @@
 package edu.neumont.pro150;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,11 +28,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 		return viewResolver;
 	}
-
 	
 	@Bean
-	public EMQueryUtil getQueryUtil() throws QueryUtilConnectionException
-	{
+	public EMQueryUtil getQueryUtil() throws QueryUtilConnectionException{
 		EMQueryUtil.RegisterEMF("fahim_list", "edu.neumont.pro150.datamodels");
 		return new EMQueryUtil("fahim_list");
 	}

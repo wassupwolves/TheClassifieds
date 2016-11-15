@@ -6,13 +6,15 @@
 	<%@ page isELIgnored="false"%>
 </head>
 <body>
-	<h1>Welcome user, please enter your information</h1>
-	<form action="/TheClassifieds/BuildUser" method="post">
-		Username:<br> <input type="text" name="username"><br><br>	
-		Password:<br> <input type="password" name="password"><br><br>
-		Confirm Password:<br> <input type="password" name="confirmpassword"><br><br>
-		Email:<br> <input type="text" name="email"><br><br>
-		<input type="submit" value="Sign Up">
-	</form>
+	<h1>Welcome!</h1>
+	<c:choose>
+		<c:when test="${msg}">
+			<a href="/MakePost.jsp">Make Post!</a>
+		</c:when>
+		<c:otherwise>
+			<a href="/SignIn.jsp">Log In!</a>
+			<a href="/SignUp.jsp">Create Account!</a>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

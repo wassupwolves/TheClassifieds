@@ -14,6 +14,10 @@ import javax.persistence.Table;
 	@NamedQuery(
 			name="consumer_all",
 			query="from Consumer"
+	),
+	@NamedQuery(
+			name="single_consumer",
+			query="from Consumer where user_name = :username"
 	)
 })
 
