@@ -1,9 +1,9 @@
 package edu.neumont.pro150.datamodels;
 
-import java.util.List;
-
+import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -22,6 +22,7 @@ import javax.persistence.Table;
 public class Consumer {
 	
 	@Id
+	@GeneratedValue
 	private Integer user_id;
 	
 	@Column
