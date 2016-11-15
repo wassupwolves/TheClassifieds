@@ -1,6 +1,5 @@
 package edu.neumont.pro150.datamodels;
 
-import javax.annotation.Generated;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +13,10 @@ import javax.persistence.Table;
 	@NamedQuery(
 			name="consumer_all",
 			query="from Consumer"
+	),
+	@NamedQuery(
+			name="single_consumer",
+			query="from Consumer where user_name = :username"
 	)
 })
 
