@@ -8,12 +8,12 @@
 <body>
 	<h1>Welcome!</h1>
 	<c:choose>
-		<c:when test="${msg}">
+		<c:when test="${not empty msg}">
 			<a href="/MakePost.jsp">Make Post!</a>
 		</c:when>
 		<c:otherwise>
-			<a href="/SignIn.jsp">Log In!</a>
-			<a href="/SignUp.jsp">Create Account!</a>
+			<a href="SignIn">Log In!</a>
+			<a href="SignUp">Create Account!</a>
 		</c:otherwise>
 	</c:choose>
 </body>

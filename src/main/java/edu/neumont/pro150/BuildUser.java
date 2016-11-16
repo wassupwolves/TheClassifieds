@@ -17,10 +17,15 @@ import edu.neumont.pro150.datamodels.*;
 import edu.neumont.pro150.hibernate5.emqueryutil.EMQueryUtil;
        
 @Controller
-public class BuildUser{
+public class BuildUser {
 
 	@Autowired
 	private EMQueryUtil consumerdb;
+	
+	@RequestMapping(value="/SignUp", method=RequestMethod.GET)
+	public ModelAndView redirectSignUp(){
+		return new ModelAndView("SignUp", "msg", "Please enter your information");
+	}
 
 	@RequestMapping(value="/BuildUser", method=RequestMethod.POST)
 	public ModelAndView listNotes(Model model,
@@ -36,7 +41,7 @@ public class BuildUser{
 			String secret = handlePassword(password);
 			consumer.setUser_password(secret);
 			consumerdb.insertORupdate(consumer);
-			return new ModelAndView("VerifyLogIn");
+			return new ModelAndView("SignIn");
 		}
 		else{
 			return new ModelAndView("SignUp", "msg", "THE PASSWORDS DO NOT MATCH");

@@ -8,7 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="msg">${msg}</c:if>
+	<h1>
+		<c:if test="${not empty msg}">
+			${msg}
+		</c:if>
+	</h1>	
 	<form action="/TheClassifieds/VerifyLogIn" method="post">
 		Username:<br> <input type="text" name="username"><br><br>	
 		Password:<br> <input type="password" name="password"><br><br>

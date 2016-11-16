@@ -11,7 +11,11 @@
 <title>Sign Up</title>
 </head>
 <body>
-	<c:if test="msg">${msg}</c:if>
+	<h1>
+		<c:if test="${not empty msg}">
+				${msg}
+		</c:if>
+	</h1>
 	<form action="/TheClassifieds/BuildUser" method="post">
 			 Username:<br> <input type="text" name="username"><br>
 		<br> Password:<br> <input type="password" name="password"><br>

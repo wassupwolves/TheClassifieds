@@ -25,6 +25,11 @@ public class VerifyLogIn {
 	@Autowired
 	private EMQueryUtil consumerdb;
 	
+	@RequestMapping(value="/SignIn", method=RequestMethod.GET)
+	public ModelAndView signIn(){
+		return new ModelAndView("SignIn", "msg", "Please sign in!");
+	}
+	
 	@RequestMapping(value="/VerifyLogIn", method=RequestMethod.POST)
 	public ModelAndView verifyUser(Model model,
 							@RequestParam("username") String username, 
