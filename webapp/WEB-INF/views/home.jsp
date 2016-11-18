@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -9,7 +9,8 @@
 	<h1>Welcome!</h1>
 	<c:choose>
 		<c:when test="${not empty msg}">
-			<a href="/MakePost.jsp">Make Post!</a>
+			<h2>${msg}</h2>
+			<a href="MakePost">Make Post!</a>
 		</c:when>
 		<c:otherwise>
 			<a href="SignIn">Log In!</a>

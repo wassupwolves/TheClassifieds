@@ -3,9 +3,8 @@ package edu.neumont.pro150;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +31,15 @@ public class VerifyLogIn {
 	
 	@RequestMapping(value="/VerifyLogIn", method=RequestMethod.POST)
 	public ModelAndView verifyUser(Model model,
+							HttpServletRequest request,
 							@RequestParam("username") String username, 
 							@RequestParam("password") String password){
 		
+		HttpSession session = request.getSession(true);		
+		
 		String hashedPassword = VerifyLogIn.handlePassword(password);
-		Consumer checkConsumer = consumerdb.namedQuerySingleResult("single_consumer", "username", username, Consumer.class);	
+		Consumer checkConsumer = consumerdb.namedQuerySingleResult("single_consumer", "username", username, Consumer.class);
+		session.setAttribute("currentConsumer", checkConsumer);
 		
 		if(checkConsumer == null){			
 			return new ModelAndView("SignIn", "msg", "That username doesn't exist");
