@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.neumont.pro150.datamodels.Consumer;
+import edu.neumont.pro150.datamodels.Post;
 import edu.neumont.pro150.hibernate5.emqueryutil.EMQueryUtil;
 
 @Controller
@@ -19,19 +20,12 @@ public class HelloController {
 	@Autowired
 	private EMQueryUtil consumerdb;
 	
-	@GetMapping("/hello")
-	public ModelAndView hello(ModelAndView model) {
-		model.setViewName("welcome");
-		model.addObject("name", "John Doe");
-		return model;
-	}
-	
 	@GetMapping("/")
 	public ModelAndView homePage(ModelAndView model){
 		
-		List<Consumer> cons = consumerdb.namedQueryResult("consumer_all", Consumer.class);
-		
-		
+		List<Consumer> cons = consumerdb.namedQueryResult("consumer_all", Consumer.class);		
+		List<Post> posts = consumerdb.namedQueryResult("post_all", Post.class);
+		model.addObject("posts", posts);
 		model.setViewName("home");
 //		model.addObject();
 		return model;

@@ -97,7 +97,7 @@ public class BuildPost {
 		for(MultipartFile file : files){
 			File convFile = new File("C:\\web\\images\\" + file.getOriginalFilename());
 	        file.transferTo(convFile);
-	        String seperator = "$$$" + file.getOriginalFilename();
+	        String seperator = "$$$" + "10.10.14.30/images/" + file.getOriginalFilename();
 	        picturePaths += seperator;
 		}		
 		picturePaths.replaceFirst("$$$", "");
