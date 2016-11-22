@@ -33,8 +33,8 @@ public class Post {
 	private Integer post_id;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName="user_id", columnDefinition="user_id")
-	private Consumer consumer;
+	@JoinColumn(name="user_id")
+	private Consumer user;
 	
 	@Column
 	private String post_title;
@@ -63,11 +63,11 @@ public class Post {
 	}
 
 	public Consumer getConsumer() {
-		return consumer;
+		return user;
 	}
 
 	public void setConsumer(Consumer consumer) {
-		this.consumer = consumer;
+		this.user = consumer;
 	}
 
 	public String getPost_title() {

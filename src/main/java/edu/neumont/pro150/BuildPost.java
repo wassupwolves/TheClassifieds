@@ -50,7 +50,7 @@ public class BuildPost {
 								@RequestParam(value="entertainment", required=false) boolean entertainment,
 								@RequestParam(value="furniture", required=false) boolean furniture) throws IOException
 	{
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(true);
 		Consumer consumer = (Consumer) session.getAttribute("currentConsumer");
 		Post post = new Post();
 		post.setConsumer(consumer);
@@ -70,6 +70,7 @@ public class BuildPost {
 		post.setPost_tags(addTagValues());
 		post.setPost_date(getDate());
 		
+		consumerdb.insertORupdate(post);
 		
 		return new ModelAndView("home", "msg", postTitle + " post created!");
 	}
@@ -78,11 +79,11 @@ public class BuildPost {
 		String finalTagString = "";
 		for(String key : tags.keySet()){
 			if(tags.get(key)){
-				String tagToAdd = "***" + key;
+				String tagToAdd = "$$$" + key;
 				finalTagString += tagToAdd;
 			}
 		}
-		finalTagString.replaceFirst("***", "");
+		finalTagString.replaceFirst("$$$", "");
 		return finalTagString;
 	}
 	
@@ -96,10 +97,10 @@ public class BuildPost {
 		for(MultipartFile file : files){
 			File convFile = new File("C:\\web\\images\\" + file.getOriginalFilename());
 	        file.transferTo(convFile);
-	        String seperator = "***" + picturePaths;
+	        String seperator = "$$$" + file.getOriginalFilename();
 	        picturePaths += seperator;
 		}		
-		picturePaths.replaceFirst("***", "");
+		picturePaths.replaceFirst("$$$", "");
 		return picturePaths;
 	}
 
