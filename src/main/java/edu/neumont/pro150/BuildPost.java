@@ -1,16 +1,14 @@
 package edu.neumont.pro150;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.neumont.pro150.datamodels.Consumer;
 import edu.neumont.pro150.datamodels.Post;
+import edu.neumont.pro150.datamodels.PostImage;
 import edu.neumont.pro150.hibernate5.emqueryutil.EMQueryUtil;
 
 @Controller
@@ -58,7 +57,12 @@ public class BuildPost {
 		post.setPost_description(postDescription);
 		post.setPost_price(postPrice);
 		
-		post.setPost_pictures(getPicturePaths(postPictures));
+		//post.setPost_pictures(getPicturePaths(postPictures));
+		Set<PostImage> images = new HashSet<>();
+		for(MultipartFile f : postPictures)
+		{
+			images.add(getPostImage(f));
+		}
 		
 //		MUST ADD MORE .PUTS TO ADD MORE TAGS
 		tags.put("appliances", appliances);
@@ -75,6 +79,8 @@ public class BuildPost {
 		return new ModelAndView("home", "msg", postTitle + " post created!");
 	}
 	
+	
+
 	private String addTagValues(){
 		String finalTagString = "";
 		for(String key : tags.keySet()){
@@ -92,6 +98,14 @@ public class BuildPost {
 		return date;
 	}
 	
+	
+	
+	private PostImage getPostImage(MultipartFile f) {
+		// TODO Create return post image
+		return null;
+	}
+	/*
+	 * No good
 	private String getPicturePaths(MultipartFile[] files) throws IOException{
 		String picturePaths = "";
 		for(MultipartFile file : files){
@@ -103,5 +117,6 @@ public class BuildPost {
 		picturePaths.replaceFirst("$$$", "");
 		return picturePaths;
 	}
+	*/
 
 }
