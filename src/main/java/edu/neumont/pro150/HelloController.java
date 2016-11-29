@@ -20,7 +20,7 @@ public class HelloController {
 	@Autowired
 	private EMQueryUtil consumerdb;
 	
-	@GetMapping("/")
+	@RequestMapping(value = {"/"}, method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView homePage(ModelAndView model){
 		
 		List<Consumer> cons = consumerdb.namedQueryResult("consumer_all", Consumer.class);		

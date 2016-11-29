@@ -6,7 +6,8 @@
 <%@ page isELIgnored="false"%>
 </head>
 <body onload="loadPosts()">
-	<h1>Welcome!</h1>
+	<h1>Welcome ${username}!</h1>
+	
 	<c:choose>
 		<c:when test="${not empty msg}">
 			<h2>${msg}</h2>
@@ -18,15 +19,18 @@
 		</c:otherwise>
 	</c:choose>
 	
+	<br><br>
+	
 	<table>
 		<c:forEach var="post" items="${posts}">
 			<tr>
-				<td>
-					<a href="/ViewPost/${post.post_id}">${post.post_title}</a>
+				<td><a href="/TheClassifieds/ViewPost/${post.post_id}">${post.post_id}) ${post.post_title}</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
+
+
 
 </body>
 </html>

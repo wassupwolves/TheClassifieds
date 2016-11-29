@@ -20,7 +20,7 @@ public class ViewPostController {
 	@Autowired
 	private EMQueryUtil consumerdb;
 	
-	@RequestMapping(value="/ViewPost/{post_id}", method=RequestMethod.GET)
+	@RequestMapping(value="/ViewPost/{post_id}", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView redirectSignUp(
 			Model model,
 			HttpServletRequest request,

@@ -3,6 +3,7 @@ package edu.neumont.pro150;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.neumont.pro150.datamodels.Consumer;
+import edu.neumont.pro150.datamodels.Post;
 import edu.neumont.pro150.hibernate5.emqueryutil.EMQueryUtil;
 
 @Controller
@@ -30,7 +32,7 @@ public class VerifyLogIn {
 	}
 	
 	@RequestMapping(value="/VerifyLogIn", method=RequestMethod.POST)
-	public ModelAndView verifyUser(Model model,
+	public ModelAndView verifyUser(ModelAndView model,
 							HttpServletRequest request,
 							@RequestParam("username") String username, 
 							@RequestParam("password") String password){
@@ -47,8 +49,14 @@ public class VerifyLogIn {
 		else if(!checkConsumer.getUser_password().equals(hashedPassword)){
 			return new ModelAndView("SignIn", "msg", "That password doesn't match the username");
 		}
-		else{			
-			return new ModelAndView("home", "msg", "User Signed In");
+		else{		
+			List<Post> posts = consumerdb.namedQueryResult("post_all", Post.class);
+			model.addObject("msg", username + " Signed In");
+			model.addObject("posts", posts);
+			model.addObject("username", username);
+			model.setViewName("home");
+			return model;
+//			return new ModelAndView("home", "msg", "User Signed In");
 		}
 
 	}

@@ -7,6 +7,7 @@
 <title>AllPosts</title>
 </head>
 <body>
-	<h1>${current_post.title}</h1>
+	<h1>${current_post.post_title}</h1>
+	
 </body>
 </html>
