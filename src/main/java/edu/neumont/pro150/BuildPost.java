@@ -1,14 +1,17 @@
 package edu.neumont.pro150;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +40,7 @@ public class BuildPost {
 	}
 	
 	@RequestMapping(value="/BuildPost", method=RequestMethod.POST)
-	public ModelAndView buildPost(Model model,
+	public ModelAndView buildPost(ModelAndView model,
 								HttpServletRequest request,
 								@RequestParam("postTitle") String postTitle, 
 								@RequestParam("postDescription") String postDescription,
@@ -47,7 +50,8 @@ public class BuildPost {
 								@RequestParam(value="auto", required=false) boolean auto,
 								@RequestParam(value="electronics", required=false) boolean electronics,
 								@RequestParam(value="entertainment", required=false) boolean entertainment,
-								@RequestParam(value="furniture", required=false) boolean furniture) throws IOException
+								@RequestParam(value="furniture", required=false) boolean furniture,
+								@RequestParam(value="other", required=false) boolean other) throws IOException
 	{
 		HttpSession session = request.getSession(true);
 		Consumer consumer = (Consumer) session.getAttribute("currentConsumer");
@@ -61,8 +65,9 @@ public class BuildPost {
 		Set<PostImage> images = new HashSet<>();
 		for(MultipartFile f : postPictures)
 		{
-			images.add(getPostImage(f));
+			images.add(getPostImage(f, post));
 		}
+		post.setImages(images);
 		
 //		MUST ADD MORE .PUTS TO ADD MORE TAGS
 		tags.put("appliances", appliances);
@@ -70,13 +75,20 @@ public class BuildPost {
 		tags.put("electronics", electronics);
 		tags.put("entertainment", entertainment);
 		tags.put("furniture", furniture);
+		tags.put("other", other);
 		
 		post.setPost_tags(addTagValues());
 		post.setPost_date(getDate());
 		
 		consumerdb.insertORupdate(post);
 		
-		return new ModelAndView("home", "msg", postTitle + " post created!");
+		List<Post> posts = consumerdb.namedQueryResult("post_all", Post.class);
+		model.addObject("posts", posts);
+		model.addObject("username", consumer.getUser_name());
+		model.setViewName("home");
+		model.addObject("msg", postTitle + " post created!");
+		
+		return model;
 	}
 	
 	
@@ -100,9 +112,20 @@ public class BuildPost {
 	
 	
 	
-	private PostImage getPostImage(MultipartFile f) {
-		// TODO Create return post image
-		return null;
+	private PostImage getPostImage(MultipartFile f, Post post) throws IllegalStateException, IOException {
+		String filePath = "C:\\web\\images\\" + f.getOriginalFilename();
+		String urlPath = "http://10.10.14.30/images/" + f.getOriginalFilename();
+		
+		PostImage postImage = new PostImage();
+		postImage.setPost(post);
+		postImage.setUrl(urlPath);
+		postImage.setAbsolutepath(filePath);
+		
+		File convFile = new File(filePath);
+        f.transferTo(convFile);
+		
+		postImage.setUpload_datetime(getDate());
+		return postImage;
 	}
 	/*
 	 * No good

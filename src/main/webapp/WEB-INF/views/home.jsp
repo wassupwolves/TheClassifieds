@@ -5,7 +5,7 @@
 <title>TheClassifieds</title>
 <%@ page isELIgnored="false"%>
 </head>
-<body onload="loadPosts()">
+<body>
 	<h1>Welcome ${username}!</h1>
 	
 	<c:choose>

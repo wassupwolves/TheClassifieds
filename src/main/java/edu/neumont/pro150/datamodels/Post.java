@@ -3,6 +3,7 @@ package edu.neumont.pro150.datamodels;
 import java.sql.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,10 @@ import javax.persistence.Table;
 	@NamedQuery(
 			name="single_post",
 			query="from Post where post_id = :post_id"
+	),
+	@NamedQuery(
+			name="singleUser_all",
+			query="from Post where user_id = :user_id"
 	)
 })
 
@@ -38,7 +43,7 @@ public class Post {
 	@JoinColumn(name="user_id")
 	private Consumer user;
 	
-	@OneToMany
+	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="post_id", referencedColumnName="post_id")
 	private Set<PostImage> images;
 	

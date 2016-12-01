@@ -7,6 +7,7 @@
 
 		<class>edu.neumont.pro150.datamodels.Consumer</class>
 		<class>edu.neumont.pro150.datamodels.Post</class>
+		<class>edu.neumont.pro150.datamodels.PostImage</class>
 
 
 		<properties>

@@ -58,8 +58,9 @@ public class VerifyLogIn {
 			return model;
 //			return new ModelAndView("home", "msg", "User Signed In");
 		}
-
 	}
+	
+	
 	
 	public static String handlePassword(String password) {
 		MessageDigest md = null;

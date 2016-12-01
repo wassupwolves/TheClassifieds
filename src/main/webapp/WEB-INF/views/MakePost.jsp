@@ -24,8 +24,9 @@
 		<input type="checkbox" name="electronics">Electronics<br>		
 		<input type="checkbox" name="entertainment">Entertainment<br>
 		<input type="checkbox" name="furniture">Furniture<br>
-		--DATE--
+		<input type="checkbox" name="other">Other<br>
 		<input type="submit" value="Create Post"><br>
+		<br> <a href="/TheClassifieds/home">Cancel Post</a>
 	</form>
 </body>
 </html>
